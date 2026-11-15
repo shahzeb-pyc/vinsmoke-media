@@ -257,7 +257,7 @@ export const ConnectLink: FC<{ token: string }> = ({ token }) => {
               <button
                 onClick={connect}
                 disabled={submitting}
-                className="bg-btnPrimary hover:bg-[#FF8A5C] disabled:opacity-50 text-white rounded-[8px] py-[12px] px-[16px] text-[14px] font-semibold transition-colors"
+                className="bg-btnPrimary hover:bg-[#D63E14] disabled:opacity-50 text-white rounded-[8px] py-[12px] px-[16px] text-[14px] font-semibold transition-colors"
               >
                 {submitting
                   ? t('connect_link_connecting', 'Connecting...')
