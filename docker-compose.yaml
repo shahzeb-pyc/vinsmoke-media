@@ -1,7 +1,7 @@
 services:
-  postiz:
+  vinsmoke:
     image: ghcr.io/gitroomhq/postiz-app:latest
-    container_name: postiz
+    container_name: vinsmoke
     restart: always
     environment:
       # === Required Settings
@@ -9,8 +9,8 @@ services:
       FRONTEND_URL: 'http://localhost:4007'
       NEXT_PUBLIC_BACKEND_URL: 'http://localhost:4007/api'
       JWT_SECRET: 'random string that is unique to every install - just type random characters here!'
-      DATABASE_URL: 'postgresql://postiz-user:postiz-password@postiz-postgres:5432/postiz-db-local'
-      REDIS_URL: 'redis://postiz-redis:6379'
+      DATABASE_URL: 'postgresql://vinsmoke-user:vinsmoke-password@vinsmoke-postgres:5432/vinsmoke-db-local'
+      REDIS_URL: 'redis://vinsmoke-redis:6379'
       BACKEND_INTERNAL_URL: 'http://localhost:3000'
       TEMPORAL_ADDRESS: 'temporal:7233'
       IS_GENERAL: 'true'
@@ -120,39 +120,39 @@ services:
       # LINK_DRIP_SHORT_LINK_DOMAIN: "dripl.ink"
 
     volumes:
-      - postiz-config:/config/
-      - postiz-uploads:/uploads/
+      - vinsmoke-config:/config/
+      - vinsmoke-uploads:/uploads/
     ports:
       - '4007:5000'
     networks:
-      - postiz-network
+      - vinsmoke-network
       - temporal-network
     depends_on:
-      postiz-postgres:
+      vinsmoke-postgres:
         condition: service_healthy
-      postiz-redis:
+      vinsmoke-redis:
         condition: service_healthy
 
-  postiz-postgres:
+  vinsmoke-postgres:
     image: postgres:17-alpine
-    container_name: postiz-postgres
+    container_name: vinsmoke-postgres
     restart: always
     environment:
-      POSTGRES_PASSWORD: postiz-password
-      POSTGRES_USER: postiz-user
-      POSTGRES_DB: postiz-db-local
+      POSTGRES_PASSWORD: vinsmoke-password
+      POSTGRES_USER: vinsmoke-user
+      POSTGRES_DB: vinsmoke-db-local
     volumes:
       - postgres-volume:/var/lib/postgresql/data
     networks:
-      - postiz-network
+      - vinsmoke-network
     healthcheck:
-      test: pg_isready -U postiz-user -d postiz-db-local
+      test: pg_isready -U vinsmoke-user -d vinsmoke-db-local
       interval: 10s
       timeout: 3s
       retries: 3
-  postiz-redis:
+  vinsmoke-redis:
     image: redis:7.2
-    container_name: postiz-redis
+    container_name: vinsmoke-redis
     restart: always
     healthcheck:
       test: redis-cli ping
@@ -160,9 +160,9 @@ services:
       timeout: 3s
       retries: 3
     volumes:
-      - postiz-redis-data:/data
+      - vinsmoke-redis-data:/data
     networks:
-      - postiz-network
+      - vinsmoke-network
 
   # For Application Monitoring / Debugging
   spotlight:
@@ -172,7 +172,7 @@ services:
       - 8969:8969/tcp
     image: ghcr.io/getsentry/spotlight:latest
     networks:
-      - postiz-network
+      - vinsmoke-network
 
   # -----------------------
   # Temporal Stack
@@ -262,17 +262,17 @@ volumes:
   postgres-volume:
     external: false
 
-  postiz-redis-data:
+  vinsmoke-redis-data:
     external: false
 
-  postiz-config:
+  vinsmoke-config:
     external: false
 
-  postiz-uploads:
+  vinsmoke-uploads:
     external: false
 
 networks:
-  postiz-network:
+  vinsmoke-network:
     external: false
   temporal-network:
     driver: bridge

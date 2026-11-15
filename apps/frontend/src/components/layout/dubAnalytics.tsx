@@ -8,11 +8,7 @@ export const DubAnalytics = () => {
   const { dub } = useVariables();
   if (!dub) return null;
   return (
-    <DubAnalyticsIn
-      domainsConfig={{
-        refer: 'postiz.pro',
-      }}
-    />
+    <DubAnalyticsIn domainsConfig={{}} />
   );
 };
 

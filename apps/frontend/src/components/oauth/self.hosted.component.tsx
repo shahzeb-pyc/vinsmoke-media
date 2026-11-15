@@ -79,13 +79,12 @@ export const OAuthSelfHosted: FC<{
       <div className="flex flex-col gap-[4px]">
         <div className="text-[16px] font-semibold">Use self-hosted</div>
         <div className="text-[14px] text-gray-400">
-          {appName} will work with your own Postiz instance. Postiz Cloud
-          relays its requests, and your API key is stored encrypted.
+          {appName} will work with your own Vinsmoke Media instance. Your API key is stored encrypted.
         </div>
       </div>
 
       {/* plain text fields: a password field makes browsers autofill the
-          saved Postiz login (email + password) into this form */}
+          saved Vinsmoke Media login (email + password) into this form */}
       <Input
         name="instance_url"
         label="Instance URL"
@@ -93,7 +92,7 @@ export const OAuthSelfHosted: FC<{
         removeError={true}
         value={instanceUrl}
         onChange={(e) => setInstanceUrl(e.target.value)}
-        placeholder="https://postiz.example.com"
+        placeholder="https://app.vinsmokemedia.online"
         inputMode="url"
         autoComplete="off"
         spellCheck={false}
