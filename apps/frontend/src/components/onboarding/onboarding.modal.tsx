@@ -407,14 +407,6 @@ const OnboardingStep2: FC<{ onBack: () => void; onNext: () => void }> = ({
             )}
           </div>
         </div>
-        <a
-          className="cursor-pointer px-[24px] h-[44px] bg-[#612BD3] hover:bg-[#5520CB] text-white transition-colors rounded-[8px] text-[14px] font-[600] flex items-center gap-[8px] shrink-0"
-          href="https://docs.postiz.com/public-api/introduction"
-          target="_blank"
-        >
-          <McpClientIcon client={apiTab} size={18} />
-          {t('read_the_api_docs', 'Read the API docs')}
-        </a>
       </div>
       <div className="bg-newBgColorInnerInner rounded-[12px] border border-newBorder overflow-hidden">
         <div className="bg-newBgColorInner px-[20px] py-[14px] border-b border-newBorder">
@@ -731,7 +723,7 @@ const OnboardingStep3: FC<{ onBack: () => void; onFinish: () => void }> = ({
           <iframe
             className="h-full aspect-video"
             src="https://www.youtube.com/embed/BdsCVvEYgHU?si=vvhaZJ8I5oXXvVJS?autoplay=1"
-            title="Postiz Tutorial"
+            title="Tutorial"
             allow="autoplay"
             allowFullScreen
           />

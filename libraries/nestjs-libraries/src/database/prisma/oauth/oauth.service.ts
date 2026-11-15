@@ -8,7 +8,13 @@ import { AuthService } from '@gitroom/helpers/auth/auth.service';
 import { extractBearerToken } from '@gitroom/nestjs-libraries/chat/oauth-types';
 import { createHash } from 'crypto';
 import { OAuthApp } from '@prisma/client';
-import type { SelfHostedInstance } from '@gitroom/nestjs-libraries/chat/mcp.relay.service';
+// The instance a self-hosted connection used to point at. The MCP relay
+// service that resolved these was removed in the Vinsmoke Media fork
+// (there is no cloud to relay to), so nothing creates them anymore.
+interface SelfHostedInstance {
+  mcpUrl: string;
+  apiKey: string;
+}
 
 const openAiOAuthClientId = () =>
   process.env.OPENAI_OAUTH_CLIENT_ID?.trim();
@@ -48,7 +54,8 @@ export const hubspotInstallUrl = () => {
   return url.toString();
 };
 
-// Postiz Cloud only, a self-hosted install has nothing to relay to
+// The self-hosted MCP relay was removed in the Vinsmoke Media fork:
+// there is no cloud to relay to, so nothing serves relayed connections.
 export const selfHostedRelayEnabled = () =>
   process.env.MCP_SELF_HOSTED_RELAY === 'true';
 
@@ -297,11 +304,11 @@ export class OAuthService {
     ].join(' ');
   }
 
-  // Only MCP connections can be relayed to an instance: dynamically registered
+  // Only MCP connections get the self-hosted option: dynamically registered
   // clients (registration is only advertised to MCP clients), the ChatGPT app,
   // or a client asking for one of the /mcp-oauth resources (RFC 8707). Apps
-  // that use Postiz OAuth for the public API never get the option, a relayed
-  // token doesn't work there
+  // that use Vinsmoke Media OAuth for the public API never get the option, a
+  // self-hosted token doesn't work there
   allowsSelfHosted(
     app: Pick<OAuthApp, 'clientId' | 'dynamic'>,
     resource?: string
@@ -320,7 +327,7 @@ export class OAuthService {
   }
 
   // The ChatGPT app reads the email from userinfo; a self-hosted connection
-  // has no cloud user to take it from, so the consent screen asks for one
+  // has no account here to take it from, so the consent screen asks for one
   selfHostedRequiresEmail(app: Pick<OAuthApp, 'clientId'>) {
     return enableOidcEmailClaims() && app.clientId === openAiOAuthClientId();
   }
