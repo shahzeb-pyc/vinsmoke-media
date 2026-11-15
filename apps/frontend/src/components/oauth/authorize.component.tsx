@@ -238,7 +238,7 @@ export const OAuthAuthorize: FC<{ logged: boolean }> = ({ logged }) => {
                   <button
                     onClick={() => handleAction('approve')}
                     disabled={submitting}
-                    className="flex-1 bg-btnPrimary hover:bg-[#FF8A5C] disabled:opacity-50 text-white rounded-[8px] py-[10px] px-[16px] text-[14px] font-semibold transition-colors"
+                    className="flex-1 bg-btnPrimary hover:bg-[#D63E14] disabled:opacity-50 text-white rounded-[8px] py-[10px] px-[16px] text-[14px] font-semibold transition-colors"
                   >
                     Authorize
                   </button>
@@ -253,7 +253,7 @@ export const OAuthAuthorize: FC<{ logged: boolean }> = ({ logged }) => {
               ) : (
                 <button
                   onClick={signIn}
-                  className="bg-btnPrimary hover:bg-[#FF8A5C] text-white rounded-[8px] py-[10px] px-[16px] text-[14px] font-semibold transition-colors"
+                  className="bg-btnPrimary hover:bg-[#D63E14] text-white rounded-[8px] py-[10px] px-[16px] text-[14px] font-semibold transition-colors"
                 >
                   Sign in to Postiz
                 </button>
