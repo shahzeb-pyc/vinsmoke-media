@@ -37,7 +37,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
         {!!process.env.DATAFAST_WEBSITE_ID && (
           <Script
             data-website-id={process.env.DATAFAST_WEBSITE_ID}
-            data-domain="postiz.com"
+            data-domain="vinsmokemedia.online"
             src="https://datafa.st/js/script.js"
             strategy="afterInteractive"
           />
@@ -100,9 +100,7 @@ export default async function AppLayout({ children }: { children: ReactNode }) {
             <DubAnalytics />
             <FacebookComponent />
             <GoogleTagManagerComponent gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
-            <Plausible
-              domain={!!process.env.IS_GENERAL ? 'postiz.com' : 'gitroom.com'}
-            >
+            <Plausible domain="vinsmokemedia.online">
               <LayoutContext>
                 <UtmSaver />
                 {children}
