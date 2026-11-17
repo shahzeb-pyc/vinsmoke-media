@@ -48,6 +48,11 @@ export async function proxy(request: NextRequest) {
     nextUrl.pathname.startsWith('/p/') ||
     nextUrl.pathname.startsWith('/provider/') ||
     nextUrl.pathname.startsWith('/icons/') ||
+    // public legal pages, linked from the register screen
+    nextUrl.pathname === '/terms' ||
+    nextUrl.pathname === '/terms/' ||
+    nextUrl.pathname === '/privacy' ||
+    nextUrl.pathname === '/privacy/' ||
     // the consent screen of MCP / OAuth clients handles signed-out visitors
     // itself (sign in and come back, or connect a self-hosted instance)
     nextUrl.pathname.startsWith('/oauth/authorize')
