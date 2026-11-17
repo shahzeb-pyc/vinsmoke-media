@@ -34,8 +34,9 @@ export default function PrivacyPage() {
                   <strong>Connected social accounts:</strong> the account
                   identifiers, names, profile images, and access tokens for the
                   social platforms you connect, so the Service can publish on
-                  your behalf. Access tokens are stored securely and are only
-                  used to act on the accounts you connected.
+                  your behalf. Access tokens are stored encrypted and are only
+                  used to act on the accounts you connected. For Pinterest,
+                  section 2 explains exactly what we access.
                 </li>
                 <li>
                   <strong>Your content:</strong> the posts, captions, images,
@@ -48,10 +49,8 @@ export default function PrivacyPage() {
                   that help us keep the Service working.
                 </li>
                 <li>
-                  <strong>Payment data:</strong> if you buy a paid plan, payment
-                  is processed by our payment provider; we receive confirmation
-                  of the payment and limited billing details, but we do not
-                  store your full card or bank details.
+                  <strong>Payment data:</strong> the Service is currently free,
+                  and we do not collect any payment details.
                 </li>
                 <li>
                   <strong>Support data:</strong> the messages you send us when
@@ -63,7 +62,55 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '2. Why we use your data',
+          heading: '2. Pinterest',
+          body: (
+            <>
+              <p>
+                If you connect a Pinterest account, we access only your own
+                connected Pinterest account and its data &mdash; never anyone
+                else&rsquo;s. Here is exactly what we access and why:
+              </p>
+              <ul>
+                <li>
+                  <strong>Your Pinterest account:</strong> your account id,
+                  username, and profile image, so we can identify the account
+                  you connected in the Service.
+                </li>
+                <li>
+                  <strong>Your boards:</strong> the names and ids of your
+                  boards, fetched from Pinterest when you choose where a Pin
+                  should go. Your board list is fetched live each time and is
+                  never stored in our database. We do not create, change, or
+                  delete boards.
+                </li>
+                <li>
+                  <strong>Pins you create or schedule:</strong> the title (up to
+                  100 characters), the description (your post message), the
+                  destination link, the image or video, and the board you chose.
+                  We send these to Pinterest only to publish a Pin you created
+                  or scheduled, at the time you scheduled. Videos are uploaded
+                  to Pinterest first so the Pin can reference them.
+                </li>
+                <li>
+                  <strong>Pin performance:</strong> analytics for the last 89
+                  days, fetched live from Pinterest when you view them and never
+                  stored in our database: for your account &mdash; pin click
+                  rate, impressions, pin clicks, engagement, and saves; for each
+                  Pin &mdash; impressions, pin clicks, outbound clicks, and
+                  saves.
+                </li>
+              </ul>
+              <p>
+                We use this data only to let you choose a board, publish your
+                Pins at the scheduled time, and show you how your Pins perform.
+                We do not read Pins you did not create through the Service, and
+                we do not access any other Pinterest user&rsquo;s data.
+              </p>
+            </>
+          ),
+        },
+        {
+          heading: '3. Why we use your data',
           body: (
             <>
               <p>We use your data only for these purposes:</p>
@@ -76,7 +123,6 @@ export default function PrivacyPage() {
                   to run and secure your account, and to recover it if you lose
                   access;
                 </li>
-                <li>to process payments for paid plans;</li>
                 <li>
                   to answer support requests and tell you about important
                   changes to the Service;
@@ -94,7 +140,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '3. Cookies',
+          heading: '4. Cookies',
           body: (
             <>
               <p>
@@ -115,7 +161,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '4. Who we share data with',
+          heading: '5. Who we share data with',
           body: (
             <>
               <p>
@@ -131,9 +177,9 @@ export default function PrivacyPage() {
                 </li>
                 <li>
                   <strong>Infrastructure and service providers:</strong> the
-                  hosting, database, storage, email, and payment providers that
-                  run the Service on our behalf. They may only use your data as
-                  we instruct them, to provide their service to us.
+                  hosting, database, storage, and email providers that run the
+                  Service on our behalf. They may only use your data as we
+                  instruct them, to provide their service to us.
                 </li>
                 <li>
                   <strong>Legal requirements:</strong> if the law requires it,
@@ -149,29 +195,50 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '5. How long we keep your data',
+          heading: '6. How long we keep your data',
           body: (
-            <p>
-              We keep your data only as long as it is needed for the purposes
-              above. While your account is active, we keep your account data,
-              connected accounts, and scheduled content so the Service can work.
-              When you close your account, we delete your personal data and your
-              content within a reasonable period, except for data we must keep
-              for legal, accounting, or security reasons (for example payment
-              records), which we keep only as long as the law requires.
-              Disconnecting a social platform revokes its access token; we
-              delete the stored token for that account.
-            </p>
+            <>
+              <p>
+                We keep your data only as long as it is needed for the purposes
+                above. While your account is active, we keep your account data,
+                connected accounts, and scheduled content so the Service can
+                work.
+              </p>
+              <p>
+                Disconnecting a social platform stops the Service from using
+                that account. It does not revoke the access you granted at the
+                platform, and it does not delete the stored access token: the
+                token stays stored in encrypted form, and the connection record
+                stays in our database. Deleting a connected account removes its
+                posts from view and marks the connection as deleted, but the
+                stored token and account details remain in the record. To stop a
+                platform itself from recognising the Service, remove the Service
+                in that platform&rsquo;s own settings. For Pinterest, your board
+                list was never stored, and Pin analytics were never stored in
+                our database, so there is nothing of those to delete.
+              </p>
+              <p>
+                When you close your account, we anonymise your personal data at
+                the time of your request: your email address and name are
+                replaced with irreversible hashes, the tokens and details of
+                your connected accounts are hashed, and your content is removed
+                from view. Your account and content records are not removed from
+                our database, and we do not promise a timeframe for removal. For
+                anything you cannot do in the app, email us at{' '}
+                <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> and we
+                will help.
+              </p>
+            </>
           ),
         },
         {
-          heading: '6. Security',
+          heading: '7. Security',
           body: (
             <p>
               We protect your data with reasonable technical and organisational
               measures, including encrypted connections, hashed passwords, and
               restricted access to our systems. Access tokens for connected
-              platforms are stored securely and are only used to publish to the
+              platforms are stored encrypted and are only used to publish to the
               accounts you connected. No system is completely secure, so if you
               believe your account has been compromised, change your password,
               disconnect affected platforms, and contact us straight away.
@@ -179,7 +246,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '7. Your rights and choices',
+          heading: '8. Your rights and choices',
           body: (
             <>
               <p>
@@ -195,8 +262,8 @@ export default function PrivacyPage() {
                   Service from accessing that account;
                 </li>
                 <li>
-                  delete your content, or close your account to delete your
-                  personal data.
+                  delete your content, or close your account to have your
+                  personal data anonymised.
                 </li>
               </ul>
               <p>
@@ -209,19 +276,19 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '8. Children',
+          heading: '9. Children',
           body: (
             <p>
-              The Service is not directed at children, and we do not knowingly
-              collect personal data from children under the age required by
-              applicable law to use online services without parental consent. If
-              you believe a child has provided us with personal data, please
-              contact us and we will delete it.
+              The Service is not intended for anyone who is not legally able to
+              enter into these terms in their jurisdiction, and we do not
+              knowingly collect personal data from anyone who cannot legally use
+              the Service. If you believe such a person has provided us with
+              personal data, please contact us and we will anonymise it.
             </p>
           ),
         },
         {
-          heading: '9. International transfers',
+          heading: '10. International transfers',
           body: (
             <p>
               The Service and its infrastructure providers may store and process
@@ -232,7 +299,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '10. Changes to this policy',
+          heading: '11. Changes to this policy',
           body: (
             <p>
               We may update this policy from time to time, for example when we
@@ -244,7 +311,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '11. Contact',
+          heading: '12. Contact',
           body: (
             <p>
               If you have any questions about this policy or about your personal
