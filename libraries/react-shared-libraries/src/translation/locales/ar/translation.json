@@ -775,7 +775,6 @@
   "connector": "موصل",
   "connector_onboarding_description": "الأسرع: أضف Vinsmoke Media بنقرة واحدة، سيطلب منك تسجيل الدخول",
   "official_connector": "الموصل الرسمي",
-  "connector_self_hosted_description": "يعمل الموصل الرسمي أيضًا مع Vinsmoke Media المستضاف ذاتيًا. عند طلب تسجيل الدخول، اختر \"Use self-hosted\" وأدخل {{url}} مع مفتاح API الخاص بك.",
   "mcp_onboarding_description": "زود وكيلك بأدوات Vinsmoke Media لإنشاء وجدولة وإدارة المنشورات",
   "cli_onboarding_description": "ثبّت Vinsmoke Media CLI والمهارة التي تعلم وكيلك كيفية استخدامها",
   "agent_settings_later": "وكلاء إضافيون وتعليمات كاملة متوفرون تحت الإعدادات > الوكلاء / المطوّر",

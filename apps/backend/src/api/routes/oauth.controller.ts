@@ -51,11 +51,6 @@ export class OAuthController {
       }
     );
 
-    const selfHosted = this._oauthService.allowsSelfHosted(
-      app,
-      query.resource
-    );
-
     return {
       app: {
         name: app.name,
@@ -65,9 +60,6 @@ export class OAuthController {
         redirectUrl: app.redirectUrl,
       },
       state: query.state,
-      selfHosted,
-      selfHostedEmail:
-        selfHosted && this._oauthService.selfHostedRequiresEmail(app),
     };
   }
 

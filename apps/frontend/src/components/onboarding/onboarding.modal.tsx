@@ -20,7 +20,6 @@ import {
   CopyButton,
   getMcpConfig,
   isChatOnlyMcpClient,
-  isSelfHosted,
   localCliSteps,
   McpAuth,
   McpClient,
@@ -310,8 +309,8 @@ const OnboardingStep2: FC<{ onBack: () => void; onNext: () => void }> = ({
   const mcpBase = mcpUrl || backendUrl;
   const apiKey = user?.publicApi || '';
   const available = !!apiKey && !!user?.tier?.public_api;
-  // the official connectors work for self-hosted installs too
-  const officialConnectors = billingEnabled || isSelfHosted;
+  // the official connectors point at the hosted Vinsmoke Media
+  const officialConnectors = billingEnabled;
 
   const { config, hint } =
     agent === apiTab
@@ -446,16 +445,10 @@ const OnboardingStep2: FC<{ onBack: () => void; onNext: () => void }> = ({
           {t('connector', 'Connector')}
         </div>
         <div className="text-[13px] text-customColor18 mt-[2px]">
-          {isSelfHosted
-            ? t(
-                'connector_self_hosted_description',
-                'The official connector works with self-hosted Postiz too. When asked to sign in, choose "Use self-hosted" and enter {{url}} with your API key.',
-                { url: mcpBase, interpolation: { escapeValue: false } }
-              )
-            : t(
-                'connector_onboarding_description',
-                'The fastest way: add Postiz with one click, you will be asked to sign in'
-              )}
+          {t(
+            'connector_onboarding_description',
+            'The fastest way: add Postiz with one click, you will be asked to sign in'
+          )}
         </div>
       </div>
       <a

@@ -21,8 +21,7 @@ export const remoteMcpClients = {
 } as const;
 
 // Official one-click connectors listed in the assistants' directories, they
-// point at the public MCP server: the hosted Vinsmoke Media (billingEnabled), or a
-// self-hosted install through "Use self-hosted" on its sign-in page.
+// point at the public MCP server of the hosted Vinsmoke Media (billingEnabled).
 export const mcpConnectorUrls = {
   Claude: 'https://claude.ai/directory/postiz',
   ChatGPT:
@@ -60,9 +59,6 @@ export type AnyMcpClient = RemoteMcpClient | ChatOnlyMcpClient | McpClient;
 // oauth: no API key, the client registers itself (DCR) and the user signs in to Vinsmoke Media
 // apikey: the organization API key, as a Bearer header (or inside the URL for remote clients)
 export type McpAuth = 'oauth' | 'apikey';
-
-// Only the self-hosted docker images are built with a version
-export const isSelfHosted = !!process.env.NEXT_PUBLIC_VERSION;
 
 // The directory listings behind the "Official connector" tab
 const officialConnectorClients = [
@@ -316,7 +312,7 @@ const McpSection = ({
   const t = useT();
   const { billingEnabled } = useVariables();
   const [activeClient, setActiveClient] = useState<AnyMcpClient>('Claude');
-  const officialConnectors = billingEnabled || isSelfHosted;
+  const officialConnectors = billingEnabled;
   // the directory connectors come first wherever they work
   const tabs: Array<'official' | McpAuth> = officialConnectors
     ? ['official', 'oauth', 'apikey']
@@ -421,16 +417,10 @@ const McpSection = ({
         {tab === 'official' ? (
           <div className="flex flex-col gap-[8px]">
             <div className="text-[12px] text-customColor18 font-[500]">
-              {isSelfHosted
-                ? t(
-                    'connector_self_hosted_description',
-                    'The official connector works with self-hosted Vinsmoke Media too. When asked to sign in, choose "Use self-hosted" and enter {{url}} with your API key.',
-                    { url: mcpBase, interpolation: { escapeValue: false } }
-                  )
-                : t(
-                    'connector_onboarding_description',
-                    'The fastest way: add Vinsmoke Media with one click, you will be asked to sign in'
-                  )}
+              {t(
+                'connector_onboarding_description',
+                'The fastest way: add Vinsmoke Media with one click, you will be asked to sign in'
+              )}
             </div>
             <div className="flex flex-wrap gap-[8px]">
               {officialConnectorClients.map((client) => (

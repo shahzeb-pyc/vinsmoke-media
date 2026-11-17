@@ -775,7 +775,6 @@
   "connector": "Konnektör",
   "connector_onboarding_description": "En hızlı yol: Vinsmoke Media'i tek tıkla ekleyin, giriş yapmanız istenecektir",
   "official_connector": "Resmi bağlayıcı",
-  "connector_self_hosted_description": "Resmi bağlayıcı, kendi sunucunuzda barındırdığınız Vinsmoke Media ile de çalışır. Giriş yapmanız istendiğinde \"Use self-hosted\" seçeneğini seçin ve API anahtarınızla birlikte {{url}} adresini girin.",
   "mcp_onboarding_description": "Ajanınıza gönderi oluşturma, zamanlama ve yönetme araçları verin",
   "cli_onboarding_description": "Vinsmoke Media CLI ve ajanınıza bunun nasıl kullanılacağını öğreten beceriyi kurun",
   "agent_settings_later": "Daha fazla ajan ve tüm talimatlara Ayarlar > Ajanlar / Geliştirici bölümünden ulaşabilirsiniz.",

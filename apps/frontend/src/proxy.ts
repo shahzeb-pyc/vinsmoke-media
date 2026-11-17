@@ -49,7 +49,7 @@ export async function proxy(request: NextRequest) {
     nextUrl.pathname.startsWith('/provider/') ||
     nextUrl.pathname.startsWith('/icons/') ||
     // the consent screen of MCP / OAuth clients handles signed-out visitors
-    // itself (sign in and come back, or connect a self-hosted instance)
+    // itself (sign in and come back)
     nextUrl.pathname.startsWith('/oauth/authorize')
   ) {
     return topResponse;

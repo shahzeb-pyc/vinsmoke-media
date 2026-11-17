@@ -4,7 +4,6 @@ import { FC, useCallback, useEffect, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useFetch } from '@gitroom/helpers/utils/custom.fetch';
 import { Logo } from '@gitroom/frontend/components/new-layout/logo';
-import { OAuthSelfHosted } from '@gitroom/frontend/components/oauth/self.hosted.component';
 
 export const OAuthAuthorize: FC<{ logged: boolean }> = ({ logged }) => {
   const searchParams = useSearchParams();
@@ -13,7 +12,6 @@ export const OAuthAuthorize: FC<{ logged: boolean }> = ({ logged }) => {
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [selfHosted, setSelfHosted] = useState(false);
 
   const clientId = searchParams.get('client_id');
   const responseType = searchParams.get('response_type');
@@ -21,7 +19,6 @@ export const OAuthAuthorize: FC<{ logged: boolean }> = ({ logged }) => {
   const redirectUri = searchParams.get('redirect_uri');
   const codeChallenge = searchParams.get('code_challenge');
   const codeChallengeMethod = searchParams.get('code_challenge_method');
-  const resource = searchParams.get('resource');
 
   useEffect(() => {
     if (!clientId || !responseType) {
@@ -44,7 +41,6 @@ export const OAuthAuthorize: FC<{ logged: boolean }> = ({ logged }) => {
       ...(codeChallengeMethod
         ? { code_challenge_method: codeChallengeMethod }
         : {}),
-      ...(resource ? { resource } : {}),
     });
 
     fetch(`/oauth/authorize?${params}`)
@@ -68,7 +64,6 @@ export const OAuthAuthorize: FC<{ logged: boolean }> = ({ logged }) => {
     redirectUri,
     codeChallenge,
     codeChallengeMethod,
-    resource,
   ]);
 
   const handleAction = useCallback(
@@ -205,70 +200,42 @@ export const OAuthAuthorize: FC<{ logged: boolean }> = ({ logged }) => {
             )}
           </div>
 
-          {selfHosted ? (
-            <OAuthSelfHosted
-              appName={appInfo.app.name}
-              askEmail={!!appInfo.selfHostedEmail}
-              params={{
-                client_id: clientId,
-                state,
-                redirect_uri: redirectUri,
-                code_challenge: codeChallenge,
-                code_challenge_method: codeChallengeMethod,
-                resource,
-              }}
-              onBack={() => setSelfHosted(false)}
-            />
+          <div className="border-t border-[#2A2929] pt-[16px]">
+            <div className="text-[14px] text-gray-400 mb-[12px]">
+              This application is requesting access to your Postiz
+              account. It will be able to:
+            </div>
+            <ul className="text-[14px] list-disc list-inside space-y-[4px]">
+              <li>Access your integrations and channels</li>
+              <li>Create and schedule posts on your behalf</li>
+              <li>Read your post analytics</li>
+            </ul>
+          </div>
+
+          {logged ? (
+            <div className="flex gap-[12px]">
+              <button
+                onClick={() => handleAction('approve')}
+                disabled={submitting}
+                className="flex-1 bg-btnPrimary hover:bg-[#D63E14] disabled:opacity-50 text-white rounded-[8px] py-[10px] px-[16px] text-[14px] font-semibold transition-colors"
+              >
+                Authorize
+              </button>
+              <button
+                onClick={() => handleAction('deny')}
+                disabled={submitting}
+                className="flex-1 bg-[#2A2929] hover:bg-[#3A3939] disabled:opacity-50 text-white rounded-[8px] py-[10px] px-[16px] text-[14px] font-semibold transition-colors"
+              >
+                Deny
+              </button>
+            </div>
           ) : (
-            <>
-              <div className="border-t border-[#2A2929] pt-[16px]">
-                <div className="text-[14px] text-gray-400 mb-[12px]">
-                  This application is requesting access to your Postiz
-                  account. It will be able to:
-                </div>
-                <ul className="text-[14px] list-disc list-inside space-y-[4px]">
-                  <li>Access your integrations and channels</li>
-                  <li>Create and schedule posts on your behalf</li>
-                  <li>Read your post analytics</li>
-                </ul>
-              </div>
-
-              {logged ? (
-                <div className="flex gap-[12px]">
-                  <button
-                    onClick={() => handleAction('approve')}
-                    disabled={submitting}
-                    className="flex-1 bg-btnPrimary hover:bg-[#D63E14] disabled:opacity-50 text-white rounded-[8px] py-[10px] px-[16px] text-[14px] font-semibold transition-colors"
-                  >
-                    Authorize
-                  </button>
-                  <button
-                    onClick={() => handleAction('deny')}
-                    disabled={submitting}
-                    className="flex-1 bg-[#2A2929] hover:bg-[#3A3939] disabled:opacity-50 text-white rounded-[8px] py-[10px] px-[16px] text-[14px] font-semibold transition-colors"
-                  >
-                    Deny
-                  </button>
-                </div>
-              ) : (
-                <button
-                  onClick={signIn}
-                  className="bg-btnPrimary hover:bg-[#D63E14] text-white rounded-[8px] py-[10px] px-[16px] text-[14px] font-semibold transition-colors"
-                >
-                  Sign in to Postiz
-                </button>
-              )}
-
-              {!!appInfo.selfHosted && (
-                <button
-                  onClick={() => setSelfHosted(true)}
-                  disabled={submitting}
-                  className="text-[14px] text-gray-400 hover:text-white disabled:opacity-50 transition-colors"
-                >
-                  Use self-hosted
-                </button>
-              )}
-            </>
+            <button
+              onClick={signIn}
+              className="bg-btnPrimary hover:bg-[#D63E14] text-white rounded-[8px] py-[10px] px-[16px] text-[14px] font-semibold transition-colors"
+            >
+              Sign in to Postiz
+            </button>
           )}
         </div>
       </div>
