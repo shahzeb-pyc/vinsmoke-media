@@ -44,6 +44,7 @@ async function start() {
       ],
       origin: [
         process.env.FRONTEND_URL,
+        'https://vinsmokemedia.online',
         'http://localhost:6274',
         ...(process.env.MAIN_URL ? [process.env.MAIN_URL] : []),
         // Optional: the Canva app calls the public API from its iframe origin
