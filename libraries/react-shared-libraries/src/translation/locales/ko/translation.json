@@ -775,7 +775,6 @@
   "connector": "커넥터",
   "connector_onboarding_description": "가장 빠른 방법: 한 번의 클릭으로 Vinsmoke Media를 추가하고, 로그인 요청을 받게 됩니다.",
   "official_connector": "공식 커넥터",
-  "connector_self_hosted_description": "공식 커넥터는 자체 호스팅 Vinsmoke Media에서도 작동합니다. 로그인하라는 메시지가 나타나면 \"Use self-hosted\"를 선택하고 {{url}}과 API 키를 입력하세요.",
   "mcp_onboarding_description": "에이전트에게 Vinsmoke Media 도구를 제공해 게시물을 생성, 예약, 관리할 수 있습니다.",
   "cli_onboarding_description": "Vinsmoke Media CLI와 에이전트에게 사용법을 알려주는 스킬을 설치하세요.",
   "agent_settings_later": "더 많은 에이전트와 전체 사용법은 설정 > 에이전트 / 개발자 메뉴에서 확인할 수 있습니다.",

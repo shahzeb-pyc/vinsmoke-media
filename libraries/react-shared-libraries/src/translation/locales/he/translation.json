@@ -775,7 +775,6 @@
   "connector": "מחבר",
   "connector_onboarding_description": "הדרך המהירה ביותר: הוסיפו את Vinsmoke Media בלחיצה אחת, תתבקשו להתחבר",
   "official_connector": "מחבר רשמי",
-  "connector_self_hosted_description": "המחבר הרשמי עובד גם עם Vinsmoke Media באירוח עצמי. כשתתבקש להתחבר, בחר \"Use self-hosted\" והזן את {{url}} יחד עם מפתח ה-API שלך.",
   "mcp_onboarding_description": "העניקו לסוכן שלכם כלים של Vinsmoke Media ליצירת, תזמון וניהול פוסטים",
   "cli_onboarding_description": "התקינו את Vinsmoke Media CLI ואת המיומנות שמלמדת את הסוכן איך להשתמש בו",
   "agent_settings_later": "סוכנים נוספים והוראות מלאות זמינים תחת הגדרות > סוכנים / Dev",

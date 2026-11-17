@@ -8,14 +8,6 @@ import { AuthService } from '@gitroom/helpers/auth/auth.service';
 import { extractBearerToken } from '@gitroom/nestjs-libraries/chat/oauth-types';
 import { createHash } from 'crypto';
 import { OAuthApp } from '@prisma/client';
-// The instance a self-hosted connection used to point at. The MCP relay
-// service that resolved these was removed in the Vinsmoke Media fork
-// (there is no cloud to relay to), so nothing creates them anymore.
-interface SelfHostedInstance {
-  mcpUrl: string;
-  apiKey: string;
-}
-
 const openAiOAuthClientId = () =>
   process.env.OPENAI_OAUTH_CLIENT_ID?.trim();
 
@@ -53,11 +45,6 @@ export const hubspotInstallUrl = () => {
   url.searchParams.set('scope', 'oauth');
   return url.toString();
 };
-
-// The self-hosted MCP relay was removed in the Vinsmoke Media fork:
-// there is no cloud to relay to, so nothing serves relayed connections.
-export const selfHostedRelayEnabled = () =>
-  process.env.MCP_SELF_HOSTED_RELAY === 'true';
 
 // Verified-domain match: exact host or a subdomain of it (spoof-safe, the
 // leading dot means evilclaude.ai and claude.ai.evil.com are both rejected)
@@ -304,54 +291,6 @@ export class OAuthService {
     ].join(' ');
   }
 
-  // Only MCP connections get the self-hosted option: dynamically registered
-  // clients (registration is only advertised to MCP clients), the ChatGPT app,
-  // or a client asking for one of the /mcp-oauth resources (RFC 8707). Apps
-  // that use Vinsmoke Media OAuth for the public API never get the option, a
-  // self-hosted token doesn't work there
-  allowsSelfHosted(
-    app: Pick<OAuthApp, 'clientId' | 'dynamic'>,
-    resource?: string
-  ) {
-    if (!selfHostedRelayEnabled()) {
-      return false;
-    }
-    if (app.dynamic || app.clientId === openAiOAuthClientId()) {
-      return true;
-    }
-    try {
-      return !!resource && new URL(resource).pathname.startsWith('/mcp-oauth');
-    } catch {
-      return false;
-    }
-  }
-
-  // The ChatGPT app reads the email from userinfo; a self-hosted connection
-  // has no account here to take it from, so the consent screen asks for one
-  selfHostedRequiresEmail(app: Pick<OAuthApp, 'clientId'>) {
-    return enableOidcEmailClaims() && app.clientId === openAiOAuthClientId();
-  }
-
-  // On top of validateAuthorizationRequest, for a self-hosted connection
-  validateSelfHostedRequest(
-    app: Pick<OAuthApp, 'clientId' | 'dynamic'>,
-    options: { resource?: string; email?: string }
-  ) {
-    if (!this.allowsSelfHosted(app, options.resource)) {
-      throw new HttpException(
-        'This application can not connect to a self-hosted instance',
-        HttpStatus.BAD_REQUEST
-      );
-    }
-
-    if (!options.email && this.selfHostedRequiresEmail(app)) {
-      throw new HttpException(
-        'Enter your email address',
-        HttpStatus.BAD_REQUEST
-      );
-    }
-  }
-
   async validateAuthorizationRequest(
     clientId: string,
     options?: {
@@ -462,40 +401,6 @@ export class OAuthService {
     return code;
   }
 
-  async createSelfHostedAuthorizationCode(
-    oauthAppId: string,
-    instance: SelfHostedInstance & { email?: string },
-    pkce?: {
-      codeChallenge?: string;
-      codeChallengeMethod?: string;
-      redirectUri?: string;
-    }
-  ) {
-    this._oauthRepository
-      .deleteAbandonedSelfHostedAuthorizations(
-        new Date(Date.now() - 24 * 60 * 60 * 1000)
-      )
-      .catch(() => {});
-
-    // The prefix sends the code to the self-hosted table at the token
-    // endpoint (regular codes use the same alphabet, without an underscore)
-    const code = 'psc_' + makeSecureId(32);
-
-    await this._oauthRepository.createSelfHostedAuthorization({
-      oauthAppId,
-      mcpUrl: instance.mcpUrl,
-      apiKey: AuthService.fixedEncryption(instance.apiKey),
-      email: instance.email,
-      authorizationCode: AuthService.fixedEncryption(code),
-      codeExpiresAt: new Date(Date.now() + 10 * 60 * 1000),
-      codeChallenge: pkce?.codeChallenge,
-      codeChallengeMethod: pkce?.codeChallengeMethod,
-      redirectUri: pkce?.redirectUri,
-    });
-
-    return code;
-  }
-
   async exchangeCodeForToken(
     code: string,
     clientId: string,
@@ -522,15 +427,6 @@ export class OAuthService {
           HttpStatus.UNAUTHORIZED
         );
       }
-    }
-
-    if (code.startsWith('psc_')) {
-      return this.exchangeSelfHostedCodeForToken(
-        app,
-        code,
-        codeVerifier,
-        redirectUri
-      );
     }
 
     const encryptedCode = AuthService.fixedEncryption(code);
@@ -564,8 +460,7 @@ export class OAuthService {
     };
   }
 
-  // Expiry, PKCE and redirect_uri checks of an authorization code, shared by
-  // cloud and self-hosted authorizations
+  // Expiry, PKCE and redirect_uri checks of an authorization code
   private verifyCodeGrant(
     auth: {
       codeExpiresAt: Date | null;
@@ -604,40 +499,6 @@ export class OAuthService {
         HttpStatus.BAD_REQUEST
       );
     }
-  }
-
-  // A self-hosted connection has no organization (or payment) to return,
-  // only the token
-  private async exchangeSelfHostedCodeForToken(
-    app: OAuthApp,
-    code: string,
-    codeVerifier?: string,
-    redirectUri?: string
-  ) {
-    const auth = await this._oauthRepository.findSelfHostedByCode(
-      AuthService.fixedEncryption(code)
-    );
-    if (!auth || auth.oauthAppId !== app.id) {
-      throw new HttpException(
-        { error: 'invalid_grant' },
-        HttpStatus.BAD_REQUEST
-      );
-    }
-
-    this.verifyCodeGrant(auth, codeVerifier, redirectUri);
-
-    const token = 'psh_' + makeSecureId(40);
-    await this._oauthRepository.exchangeSelfHostedCodeForToken(
-      auth.id,
-      AuthService.fixedEncryption(token)
-    );
-
-    return {
-      access_token: token,
-      token_type: 'bearer',
-      scope: this.grantedScope(app),
-      ...this.refreshFields(app, token),
-    };
   }
 
   // HubSpot refuses a token response without a refresh token. Postiz access
@@ -680,13 +541,9 @@ export class OAuthService {
       );
     }
 
-    // a self-hosted connection only works while the relay is on
     const encryptedToken = AuthService.fixedEncryption(refreshToken);
-    const authorization = refreshToken.startsWith('psh_')
-      ? selfHostedRelayEnabled()
-        ? await this._oauthRepository.findSelfHostedByAccessToken(encryptedToken)
-        : null
-      : await this._oauthRepository.findByAccessToken(encryptedToken);
+    const authorization =
+      await this._oauthRepository.findByAccessToken(encryptedToken);
     if (!authorization || authorization.oauthAppId !== app.id) {
       throw new HttpException(
         { error: 'invalid_grant' },
@@ -747,31 +604,6 @@ export class OAuthService {
     await response.body?.cancel();
   }
 
-  // null when the relay is off or the token is unknown or revoked
-  async getSelfHostedByAccessToken(token: string) {
-    if (!selfHostedRelayEnabled()) {
-      return null;
-    }
-
-    const authorization =
-      await this._oauthRepository.findSelfHostedByAccessToken(
-        AuthService.fixedEncryption(token)
-      );
-    if (!authorization) {
-      return null;
-    }
-
-    return {
-      id: authorization.id,
-      mcpUrl: authorization.mcpUrl,
-      apiKey: AuthService.fixedDecryption(authorization.apiKey),
-    };
-  }
-
-  deleteSelfHostedAuthorization(id: string) {
-    return this._oauthRepository.deleteSelfHostedAuthorization(id);
-  }
-
   async getOrgByOAuthToken(token: string) {
     const encrypted = AuthService.fixedEncryption(token);
     return this._oauthRepository.findByAccessToken(encrypted);
@@ -794,10 +626,6 @@ export class OAuthService {
         { error: 'invalid_token', error_description: 'Bearer token required' },
         HttpStatus.UNAUTHORIZED
       );
-    }
-
-    if (token.startsWith('psh_')) {
-      return this.getSelfHostedUserInfo(token);
     }
 
     const authorizationRecord = await this.getOrgByOAuthToken(token);
@@ -827,39 +655,6 @@ export class OAuthService {
     };
   }
 
-  // A self-hosted connection has no cloud user: the subject is the connection
-  // and the email is the one typed on the consent screen, which nobody verified
-  private async getSelfHostedUserInfo(token: string) {
-    const selfHosted = selfHostedRelayEnabled()
-      ? await this._oauthRepository.findSelfHostedUserInfo(
-          AuthService.fixedEncryption(token)
-        )
-      : null;
-    if (!selfHosted) {
-      throw new HttpException(
-        { error: 'invalid_token', error_description: 'Token is invalid or revoked' },
-        HttpStatus.UNAUTHORIZED
-      );
-    }
-
-    if (!this.allowsEmailClaims(selfHosted.oauthApp)) {
-      throw new HttpException(
-        {
-          error: 'insufficient_scope',
-          error_description:
-            'This OAuth client is not authorized to access email claims',
-        },
-        HttpStatus.FORBIDDEN
-      );
-    }
-
-    return {
-      sub: selfHosted.id,
-      ...(selfHosted.email
-        ? { email: selfHosted.email, email_verified: false }
-        : {}),
-    };
-  }
 
   async getApprovedApps(userId: string) {
     return this._oauthRepository.getApprovedApps(userId);

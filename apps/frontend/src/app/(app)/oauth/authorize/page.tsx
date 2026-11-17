@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 
 export const dynamic = 'force-dynamic';
 
-// signed-out visitors get the page too (sign in, or use self-hosted)
+// signed-out visitors get the page too (sign in first)
 export default async function OAuthAuthorizePage() {
   const get = (await cookies()).get('auth');
   return <OAuthAuthorize logged={!!get?.name} />;

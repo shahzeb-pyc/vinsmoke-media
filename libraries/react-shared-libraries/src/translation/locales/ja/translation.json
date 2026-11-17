@@ -775,7 +775,6 @@
   "connector": "コネクタ",
   "connector_onboarding_description": "最速の方法: ワンクリックでVinsmoke Mediaを追加、サインインが求められます。",
   "official_connector": "公式コネクタ",
-  "connector_self_hosted_description": "公式コネクタはセルフホストの Vinsmoke Media でも使えます。サインインを求められたら「Use self-hosted」を選び、{{url}} と API キーを入力してください。",
   "mcp_onboarding_description": "エージェントにVinsmoke Mediaのツールを使わせて、投稿の作成やスケジュール管理をさせましょう。",
   "cli_onboarding_description": "Vinsmoke Media CLIと、それを使い方をエージェントに教えるスキルをインストールします。",
   "agent_settings_later": "設定 > エージェント / Dev で、さらに多くのエージェントと詳しい手順をご覧いただけます。",

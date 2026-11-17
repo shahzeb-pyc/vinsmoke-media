@@ -775,7 +775,6 @@
   "connector": "Connector",
   "connector_onboarding_description": "Nhanh nhất: thêm Vinsmoke Media chỉ với một cú nhấp, bạn sẽ được yêu cầu đăng nhập",
   "official_connector": "Trình kết nối chính thức",
-  "connector_self_hosted_description": "Trình kết nối chính thức cũng hoạt động với Vinsmoke Media tự lưu trữ. Khi được yêu cầu đăng nhập, hãy chọn \"Use self-hosted\" và nhập {{url}} cùng khóa API của bạn.",
   "mcp_onboarding_description": "Cung cấp cho Agent của bạn các công cụ của Vinsmoke Media để tạo, lên lịch và quản lý bài đăng",
   "cli_onboarding_description": "Cài đặt Vinsmoke Media CLI và kỹ năng hướng dẫn Agent của bạn cách sử dụng nó",
   "agent_settings_later": "Nhiều đại lý hơn và hướng dẫn đầy đủ có tại Cài đặt > Đại lý / Dev",

@@ -775,7 +775,6 @@
   "connector": "Connecteur",
   "connector_onboarding_description": "La façon la plus rapide : ajoutez Vinsmoke Media en un clic, vous serez invité à vous connecter",
   "official_connector": "Connecteur officiel",
-  "connector_self_hosted_description": "Le connecteur officiel fonctionne aussi avec Vinsmoke Media auto-hébergé. Lorsqu'on vous demande de vous connecter, choisissez \"Use self-hosted\" et saisissez {{url}} avec votre clé API.",
   "mcp_onboarding_description": "Donnez à votre agent des outils Vinsmoke Media pour créer, programmer et gérer des publications",
   "cli_onboarding_description": "Installez le CLI Vinsmoke Media et la compétence qui apprend à votre agent à l’utiliser",
   "agent_settings_later": "Plus d'agents et des instructions complètes sont disponibles dans Paramètres > Agents / Dev",

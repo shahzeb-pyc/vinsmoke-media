@@ -777,7 +777,6 @@
   "connector": "Connector",
   "connector_onboarding_description": "The fastest way: add Vinsmoke Media with one click, you will be asked to sign in",
   "official_connector": "Official connector",
-  "connector_self_hosted_description": "The official connector works with self-hosted Vinsmoke Media too. When asked to sign in, choose \"Use self-hosted\" and enter {{url}} with your API key.",
   "mcp_onboarding_description": "Give your agent Vinsmoke Media tools to create, schedule and manage posts",
   "cli_onboarding_description": "Install the Vinsmoke Media CLI and the skill that teaches your agent how to use it",
   "agent_settings_later": "More agents and full instructions are available under Settings > Agents / Dev",
