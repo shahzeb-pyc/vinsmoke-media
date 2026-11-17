@@ -94,9 +94,10 @@ export default function PrivacyPage() {
                 <li>
                   <strong>Pin performance:</strong> analytics for the last 89
                   days, fetched live from Pinterest when you view them and never
-                  stored: for your account &mdash; pin click rate, impressions,
-                  pin clicks, engagement, and saves; for each Pin &mdash;
-                  impressions, pin clicks, outbound clicks, and saves.
+                  stored in our database: for your account &mdash; pin click
+                  rate, impressions, pin clicks, engagement, and saves; for each
+                  Pin &mdash; impressions, pin clicks, outbound clicks, and
+                  saves.
                 </li>
               </ul>
               <p>
@@ -213,8 +214,8 @@ export default function PrivacyPage() {
                 stored token and account details remain in the record. To stop a
                 platform itself from recognising the Service, remove the Service
                 in that platform&rsquo;s own settings. For Pinterest, your board
-                list was never stored, and Pin analytics were never stored, so
-                there is nothing of those to delete.
+                list was never stored, and Pin analytics were never stored in
+                our database, so there is nothing of those to delete.
               </p>
               <p>
                 When you close your account, we anonymise your personal data at
