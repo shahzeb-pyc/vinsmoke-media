@@ -58,12 +58,15 @@ export async function proxy(request: NextRequest) {
     nextUrl.pathname.startsWith('/oauth/authorize') ||
     // the landing page is public on the apex domain only, for signed-out
     // visitors — the app subdomain keeps redirecting `/` to /auth (see
-    // below), and a signed-in `/` still redirects to /launches. nginx
-    // passes the real Host header through (proxy_set_header Host $host),
-    // so nextUrl.hostname is the host the visitor actually asked for.
+    // below), and a signed-in `/` still redirects to /launches. The
+    // visitor's host must come from the Host header: in Next.js 16,
+    // nextUrl.hostname is the hostname the Next server itself was
+    // started with, not the visitor's Host header (nginx passes the real
+    // Host through with proxy_set_header Host $host).
     (nextUrl.pathname === '/' &&
       !authCookie &&
-      nextUrl.hostname === 'vinsmokemedia.online')
+      request.headers.get('host')?.split(':')[0].toLowerCase() ===
+        'vinsmokemedia.online')
   ) {
     return topResponse;
   }
