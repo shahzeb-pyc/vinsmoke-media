@@ -35,8 +35,8 @@ export default function PrivacyPage() {
                   identifiers, names, profile images, and access tokens for the
                   social platforms you connect, so the Service can publish on
                   your behalf. Access tokens are stored encrypted and are only
-                  used to act on the accounts you connected. For Pinterest,
-                  section 2 explains exactly what we access.
+                  used to act on the accounts you connected. For Pinterest and
+                  YouTube, sections 2 and 3 explain exactly what we access.
                 </li>
                 <li>
                   <strong>Your content:</strong> the posts, captions, images,
@@ -110,7 +110,73 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '3. Why we use your data',
+          heading: '3. YouTube',
+          body: (
+            <>
+              <p>
+                If you connect a YouTube account, we access only your own
+                connected Google account and YouTube channel &mdash; never
+                anyone else&rsquo;s. Here is exactly what we access and why:
+              </p>
+              <ul>
+                <li>
+                  <strong>Your Google account:</strong> your name, email
+                  address, and profile picture, so we can identify the
+                  account you connected in the Service.
+                </li>
+                <li>
+                  <strong>Your YouTube channel:</strong> your channel id,
+                  name, profile picture, and subscriber count, so we can
+                  identify the channel you connected in the Service. We store
+                  the channel id, name, and picture with your connection
+                  record, and your access and refresh tokens are stored
+                  encrypted.
+                </li>
+                <li>
+                  <strong>Videos you publish:</strong> the title (up to 100
+                  characters), the description (your post message), the tags,
+                  the privacy setting (public, unlisted, or private), the
+                  thumbnail, and the settings you chose, such as whether the
+                  video is made for kids or contains AI-generated content. We
+                  send these to YouTube only to upload a video you created or
+                  scheduled, at the time you scheduled, to your own channel.
+                </li>
+                <li>
+                  <strong>Channel performance:</strong> analytics for your own
+                  channel, fetched live from YouTube when you view them and
+                  never stored in our database: views, watch time, average
+                  view duration and percentage, subscribers gained and lost,
+                  and likes. To keep the page loading quickly, these figures
+                  may be held in a short-lived cache for up to one hour.
+                </li>
+                <li>
+                  <strong>Video performance:</strong> statistics for each of
+                  your videos, fetched live from YouTube when you view them
+                  and never stored in our database: views, likes, comments,
+                  and favourites. These may also be held in a short-lived
+                  cache for up to one hour.
+                </li>
+              </ul>
+              <p>
+                We use this data only to publish your videos to your own
+                channel at the scheduled time and to show you how your channel
+                and videos perform. We do not access anyone else&rsquo;s
+                channel, and we do not manage playlists or comments, or touch
+                Content ID or partner assets.
+              </p>
+              <p>
+                Google user data is used only to provide the YouTube features
+                of the Service described above. We do not sell Google user
+                data, we do not share it with third parties except as
+                described in section 6, and we do not use it for advertising.
+                This use follows the Google API Services User Data Policy,
+                including its Limited Use requirements.
+              </p>
+            </>
+          ),
+        },
+        {
+          heading: '4. Why we use your data',
           body: (
             <>
               <p>We use your data only for these purposes:</p>
@@ -140,7 +206,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '4. Cookies',
+          heading: '5. Cookies',
           body: (
             <>
               <p>
@@ -161,7 +227,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '5. Who we share data with',
+          heading: '6. Who we share data with',
           body: (
             <>
               <p>
@@ -195,7 +261,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '6. How long we keep your data',
+          heading: '7. How long we keep your data',
           body: (
             <>
               <p>
@@ -215,7 +281,10 @@ export default function PrivacyPage() {
                 platform itself from recognising the Service, remove the Service
                 in that platform&rsquo;s own settings. For Pinterest, your board
                 list was never stored, and Pin analytics were never stored in
-                our database, so there is nothing of those to delete.
+                our database, so there is nothing of those to delete. For
+                YouTube, your channel analytics and per-video statistics were
+                fetched live and never stored in our database, so there is
+                nothing of those to delete.
               </p>
               <p>
                 When you close your account, we anonymise your personal data at
@@ -232,7 +301,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '7. Security',
+          heading: '8. Security',
           body: (
             <p>
               We protect your data with reasonable technical and organisational
@@ -246,7 +315,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '8. Your rights and choices',
+          heading: '9. Your rights and choices',
           body: (
             <>
               <p>
@@ -276,7 +345,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '9. Children',
+          heading: '10. Children',
           body: (
             <p>
               The Service is not intended for anyone who is not legally able to
@@ -288,7 +357,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '10. International transfers',
+          heading: '11. International transfers',
           body: (
             <p>
               The Service and its infrastructure providers may store and process
@@ -299,7 +368,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '11. Changes to this policy',
+          heading: '12. Changes to this policy',
           body: (
             <p>
               We may update this policy from time to time, for example when we
@@ -311,7 +380,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '12. Contact',
+          heading: '13. Contact',
           body: (
             <p>
               If you have any questions about this policy or about your personal
