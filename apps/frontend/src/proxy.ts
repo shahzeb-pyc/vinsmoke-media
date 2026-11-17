@@ -55,7 +55,15 @@ export async function proxy(request: NextRequest) {
     nextUrl.pathname === '/privacy/' ||
     // the consent screen of MCP / OAuth clients handles signed-out visitors
     // itself (sign in and come back)
-    nextUrl.pathname.startsWith('/oauth/authorize')
+    nextUrl.pathname.startsWith('/oauth/authorize') ||
+    // the landing page is public on the apex domain only, for signed-out
+    // visitors — the app subdomain keeps redirecting `/` to /auth (see
+    // below), and a signed-in `/` still redirects to /launches. nginx
+    // passes the real Host header through (proxy_set_header Host $host),
+    // so nextUrl.hostname is the host the visitor actually asked for.
+    (nextUrl.pathname === '/' &&
+      !authCookie &&
+      nextUrl.hostname === 'vinsmokemedia.online')
   ) {
     return topResponse;
   }
