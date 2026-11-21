@@ -36,7 +36,8 @@ export default function PrivacyPage() {
                   social platforms you connect, so the Service can publish on
                   your behalf. Access tokens are stored encrypted and are only
                   used to act on the accounts you connected. For Pinterest and
-                  YouTube, sections 2 and 3 explain exactly what we access.
+                  For Pinterest, YouTube and Facebook, sections 2, 3 and 4
+                  explain exactly what we access.
                 </li>
                 <li>
                   <strong>Your content:</strong> the posts, captions, images,
@@ -168,7 +169,7 @@ export default function PrivacyPage() {
                 Google user data is used only to provide the YouTube features
                 of the Service described above. We do not sell Google user
                 data, we do not share it with third parties except as
-                described in section 6, and we do not use it for advertising.
+                described in section 7, and we do not use it for advertising.
                 This use follows the Google API Services User Data Policy,
                 including its Limited Use requirements.
               </p>
@@ -176,7 +177,84 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '4. Why we use your data',
+          heading: '4. Facebook',
+          body: (
+            <>
+              <p>
+                If you connect a Facebook Page, we access only your own
+                connected Page &mdash; never any other Page. Here is exactly
+                what we access and why:
+              </p>
+              <ul>
+                <li>
+                  <strong>Your Facebook account:</strong> your account id,
+                  name, and profile picture, so we can identify the account
+                  you connected in the Service. We store these with your
+                  connection record when you connect, and they are replaced
+                  with the Page&rsquo;s details once you choose a Page.
+                </li>
+                <li>
+                  <strong>Your Facebook Page:</strong> your Page id, name,
+                  username, and profile picture, so we can identify the Page
+                  you connected in the Service. We store these with your
+                  connection record, and your Page access token is stored
+                  encrypted.
+                </li>
+                <li>
+                  <strong>Pages you manage:</strong> the list of Pages you
+                  manage, including Pages found through Business Manager
+                  &mdash; Pages your businesses own and Pages you manage as a
+                  client &mdash; so business Pages appear when you choose
+                  which Page to connect. This list is fetched live from
+                  Facebook when you choose a Page.
+                </li>
+                <li>
+                  <strong>Posts you publish:</strong> the text, photos, video
+                  or reel &mdash; or story &mdash; you created or scheduled.
+                  We send these to Facebook only to publish to your own Page,
+                  at the time you scheduled or straight away. For a video
+                  story, we check its processing status with Facebook and
+                  only publish it once Facebook confirms it is ready.
+                </li>
+                <li>
+                  <strong>First comment:</strong> a comment you write with a
+                  post (often the hashtags or a link), posted under the post
+                  once it is live, as the Page itself.
+                </li>
+                <li>
+                  <strong>Page performance:</strong> analytics for your own
+                  Page, fetched live from Facebook when you view them and
+                  never stored in our database: unique people who saw your
+                  media, total media views, post engagements, and new follows
+                  each day. To keep the page loading quickly, these figures
+                  may be held in a short-lived cache for up to one hour.
+                </li>
+                <li>
+                  <strong>Post performance:</strong> statistics for each of
+                  your posts, fetched live from Facebook when you view them
+                  and never stored in our database: reach, reactions by type,
+                  and clicks; for videos and reels, views, plays, reactions,
+                  and engagement. These may also be held in a short-lived
+                  cache for up to one hour.
+                </li>
+              </ul>
+              <p>
+                We use this data only to publish your posts to your own Page
+                at the scheduled time and to show you how your Page and posts
+                perform.
+              </p>
+              <p>
+                We do not access any other Page, and we do not publish as a
+                personal profile. We do not delete posts or comments, read
+                ratings, read posts your Page is tagged in, or read your
+                followers&rsquo; comments. We do not use Messenger, and we do
+                not run or manage ads.
+              </p>
+            </>
+          ),
+        },
+        {
+          heading: '5. Why we use your data',
           body: (
             <>
               <p>We use your data only for these purposes:</p>
@@ -206,7 +284,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '5. Cookies',
+          heading: '6. Cookies',
           body: (
             <>
               <p>
@@ -227,7 +305,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '6. Who we share data with',
+          heading: '7. Who we share data with',
           body: (
             <>
               <p>
@@ -261,7 +339,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '7. How long we keep your data',
+          heading: '8. How long we keep your data',
           body: (
             <>
               <p>
@@ -284,7 +362,9 @@ export default function PrivacyPage() {
                 our database, so there is nothing of those to delete. For
                 YouTube, your channel analytics and per-video statistics were
                 fetched live and never stored in our database, so there is
-                nothing of those to delete.
+                nothing of those to delete. For Facebook, your Page analytics
+                and per-post statistics were fetched live and never stored in
+                our database, so there is nothing of those to delete.
               </p>
               <p>
                 When you close your account, we anonymise your personal data at
@@ -301,7 +381,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '8. Security',
+          heading: '9. Security',
           body: (
             <p>
               We protect your data with reasonable technical and organisational
@@ -315,7 +395,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '9. Your rights and choices',
+          heading: '10. Your rights and choices',
           body: (
             <>
               <p>
@@ -345,7 +425,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '10. Children',
+          heading: '11. Children',
           body: (
             <p>
               The Service is not intended for anyone who is not legally able to
@@ -357,7 +437,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '11. International transfers',
+          heading: '12. International transfers',
           body: (
             <p>
               The Service and its infrastructure providers may store and process
@@ -368,7 +448,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '12. Changes to this policy',
+          heading: '13. Changes to this policy',
           body: (
             <p>
               We may update this policy from time to time, for example when we
@@ -380,7 +460,7 @@ export default function PrivacyPage() {
           ),
         },
         {
-          heading: '13. Contact',
+          heading: '14. Contact',
           body: (
             <p>
               If you have any questions about this policy or about your personal
