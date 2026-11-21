@@ -182,10 +182,17 @@ export default function PrivacyPage() {
             <>
               <p>
                 If you connect a Facebook Page, we access only your own
-                connected Page &mdash; never any other Page, and never a
-                personal profile. Here is exactly what we access and why:
+                connected Page &mdash; never any other Page. Here is exactly
+                what we access and why:
               </p>
               <ul>
+                <li>
+                  <strong>Your Facebook account:</strong> your account id,
+                  name, and profile picture, so we can identify the account
+                  you connected in the Service. We store these with your
+                  connection record when you connect, and they are replaced
+                  with the Page&rsquo;s details once you choose a Page.
+                </li>
                 <li>
                   <strong>Your Facebook Page:</strong> your Page id, name,
                   username, and profile picture, so we can identify the Page
